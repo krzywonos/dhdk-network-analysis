@@ -17,10 +17,11 @@ pp(betweenness)
 
 
 # Draw graph with Betweenness Centrality
-plt.figure(figsize=(12, 12))
+fig = plt.figure(figsize=(12, 12))
+fig.canvas.manager.set_window_title("Betweenness Centrality")
 pos = nx.spring_layout(G, seed=42)
 node_sizes = [5000 * betweenness[n] for n in G.nodes()]
 nx.draw(G, pos, with_labels=True, node_color="lightcoral", edge_color="black", node_size=node_sizes, alpha=0.7)
-plt.title("Simplified Graph: Betweenness Centrality")
+fig.suptitle("Simplified Graph: Betweenness Centrality")
 
 plt.show()
