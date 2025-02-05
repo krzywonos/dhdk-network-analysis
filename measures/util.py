@@ -1,5 +1,6 @@
 import networkx as nx
 import pandas as pd
+import os
 
 def df_to_graph(data:pd.DataFrame, weights:str, label:str) -> nx.Graph:
     # Graph representing our dataset
