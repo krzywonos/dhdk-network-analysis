@@ -1,7 +1,7 @@
 import pandas as pd
 from util import csv_to_multigraph
 
-MG = csv_to_multigraph('genre_cooccurrences_in_a_year.csv', 'weight', 'label')
+MG = csv_to_multigraph('../data/genre_cooccurrences_in_a_year.csv', 'weight', 'label')
 
 # Weighted degree measure
 degree_rank = dict()
