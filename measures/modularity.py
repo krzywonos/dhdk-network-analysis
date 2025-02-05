@@ -6,6 +6,8 @@ import pandas as pd
 
 MG = csv_to_multigraph('../data/genre_cooccurrences_in_a_year.csv', 'weight', 'label')
 G = MG_to_G(MG, 'weight')
+data = pd.read_csv("genre_cooccurrences_in_a_year.csv")
+graphs_by_decade = decade_graphs(data, timestamp_label="release_year", weight_label="count")
 
 # Modularity measure done using different techniques to generate communities
 
