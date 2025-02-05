@@ -34,3 +34,31 @@ def decade_graphs (data: pd.DataFrame, timestamp_label:str, weight_label: str) -
         graphs_by_decade[decade] = graph
 
     return graphs_by_decade
+
+def csv_to_multigraph(csv_file, weights:str, label:str) -> nx.MultiGraph:
+    # csv_file must be a csv file path
+    try:
+        os.path.isfile(csv_file) and csv_file.endswith(".csv")
+    except:
+        print("\'csv_file\' must be a csv file path, check its correctness.")
+        
+    # Loading csv file in read mode
+    data = open(csv_file, "r")
+    next(data, None) # Skipping headers
+
+    # Multigraph representing our dataset
+    MG = nx.parse_edgelist(data, delimiter=',', create_using=nx.MultiGraph(), nodetype=str, data=((label, int),(weights, int),))
+
+    return MG
+
+def MG_to_G(multigraph:nx.MultiGraph, weight:str) -> nx.Graph:
+    G = nx.Graph()
+
+    # Weights aggregation
+    for u, v, data in multigraph.edges(data=True):
+        if G.has_edge(u, v):
+            G[u][v][weight] += data[weight]  # Sum weights
+        else:
+            G.add_edge(u, v, weight=data[weight])
+
+    return G
