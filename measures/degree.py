@@ -2,8 +2,8 @@ import pandas as pd
 from util import csv_to_multigraph, decade_graphs
 import os
 
-MG = csv_to_multigraph('../data/genre_cooccurrences_in_a_year.csv', 'weight', 'label')
-data = pd.read_csv("../data/genre_cooccurrences_in_a_year.csv")
+MG = csv_to_multigraph('data/genre_cooccurrences_in_a_year.csv', 'weight', 'label')
+data = pd.read_csv("data/genre_cooccurrences_in_a_year.csv")
 graphs_by_decade = decade_graphs(data, timestamp_label="release_year", weight_label="count")
 
 # Weighted degree measure
@@ -18,7 +18,7 @@ top_degree_df.index += 1
 
 print(top_degree_df.to_string())
 
-os.mkdir("measures_data/degree_by_decade")
+os.mkdir("measures/measures_data/degree_by_decade")
 for dec, g in graphs_by_decade.items():
     degree_rank = dict()
 
@@ -29,5 +29,5 @@ for dec, g in graphs_by_decade.items():
     top_degree_df = pd.DataFrame(top_degree.items(), columns=['Genre', 'Degree'])
     top_degree_df.index += 1
 
-    top_degree_df.to_csv(f"measures_data/degree_by_decade/{dec}_b.csv", index_label="Index")
+    top_degree_df.to_csv(f"measures/measures_data/degree_by_decade/{dec}_b.csv", index_label="Index")
 
