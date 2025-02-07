@@ -2,8 +2,8 @@ import pandas as pd
 from util import csv_to_multigraph, decade_graphs
 import os
 
-MG = csv_to_multigraph('genre_cooccurrences_in_a_year.csv', 'weight', 'label')
-data = pd.read_csv("genre_cooccurrences_in_a_year.csv")
+MG = csv_to_multigraph('../data/genre_cooccurrences_in_a_year.csv', 'weight', 'label')
+data = pd.read_csv("../data/genre_cooccurrences_in_a_year.csv")
 graphs_by_decade = decade_graphs(data, timestamp_label="release_year", weight_label="count")
 
 # Weighted degree measure
