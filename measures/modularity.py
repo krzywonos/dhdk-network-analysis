@@ -28,9 +28,9 @@ for _ in louvain_comm:
     print(_)
 Q2 = nx_quality.modularity(MG, louvain_comm)
 print("\n\nModularity Q2:", Q2)
+
 d_greedy_modularity = dict()
 d_louvian_modularity = dict()
-
 os.mkdir("measures_data/modularity")
 # Same measures, but for each decade
 for decade, graph in graphs_by_decade.items():
