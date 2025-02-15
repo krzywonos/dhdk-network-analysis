@@ -1,0 +1,164 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 900px;
+                 background-color: #111111;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#FFFF00", "font": {"color": "white"}, "id": "Animation", "label": "Animation", "shape": "dot", "size": 21.926605504587158, "title": "Betweenness: 0.076"}, {"color": "#1E90FF", "font": {"color": "white"}, "id": "Comedy", "label": "Comedy", "shape": "dot", "size": 10.0, "title": "Betweenness: 0.000"}, {"color": "#1E90FF", "font": {"color": "white"}, "id": "Family", "label": "Family", "shape": "dot", "size": 10.0, "title": "Betweenness: 0.000"}, {"color": "#1E90FF", "font": {"color": "white"}, "id": "Adventure", "label": "Adventure", "shape": "dot", "size": 10.0, "title": "Betweenness: 0.000"}, {"color": "#FFFF00", "font": {"color": "white"}, "id": "Fantasy", "label": "Fantasy", "shape": "dot", "size": 22.84403669724771, "title": "Betweenness: 0.082"}, {"color": "#1E90FF", "font": {"color": "white"}, "id": "Romance", "label": "Romance", "shape": "dot", "size": 10.0, "title": "Betweenness: 0.000"}, {"color": "#1E90FF", "font": {"color": "white"}, "id": "Drama", "label": "Drama", "shape": "dot", "size": 10.0, "title": "Betweenness: 0.000"}, {"color": "#1E90FF", "font": {"color": "white"}, "id": "Action", "label": "Action", "shape": "dot", "size": 10.0, "title": "Betweenness: 0.000"}, {"color": "#1E90FF", "font": {"color": "white"}, "id": "Crime", "label": "Crime", "shape": "dot", "size": 10.0, "title": "Betweenness: 0.000"}, {"color": "#1E90FF", "font": {"color": "white"}, "id": "Thriller", "label": "Thriller", "shape": "dot", "size": 10.0, "title": "Betweenness: 0.000"}, {"color": "#1E90FF", "font": {"color": "white"}, "id": "Horror", "label": "Horror", "shape": "dot", "size": 10.0, "title": "Betweenness: 0.000"}, {"color": "#FFA500", "font": {"color": "white"}, "id": "History", "label": "History", "shape": "dot", "size": 33.39449541284404, "title": "Betweenness: 0.149"}, {"color": "#1E90FF", "font": {"color": "white"}, "id": "Science_Fiction", "label": "Science_Fiction", "shape": "dot", "size": 11.8348623853211, "title": "Betweenness: 0.012"}, {"color": "#1E90FF", "font": {"color": "white"}, "id": "Mystery", "label": "Mystery", "shape": "dot", "size": 10.0, "title": "Betweenness: 0.000"}, {"color": "#FFA500", "font": {"color": "white"}, "id": "War", "label": "War", "shape": "dot", "size": 28.807339449541285, "title": "Betweenness: 0.120"}, {"color": "#FFFF00", "font": {"color": "white"}, "id": "Foreign", "label": "Foreign", "shape": "dot", "size": 21.926605504587158, "title": "Betweenness: 0.076"}, {"color": "#FFFF00", "font": {"color": "white"}, "id": "Music", "label": "Music", "shape": "dot", "size": 25.59633027522936, "title": "Betweenness: 0.099"}, {"color": "#FF4500", "font": {"color": "white"}, "id": "Documentary", "label": "Documentary", "shape": "dot", "size": 56.788990825688074, "title": "Betweenness: 0.298"}, {"color": "#FF4500", "font": {"color": "white"}, "id": "Western", "label": "Western", "shape": "dot", "size": 60.0, "title": "Betweenness: 0.319"}, {"color": "#1E90FF", "font": {"color": "white"}, "id": "TV_Movie", "label": "TV_Movie", "shape": "dot", "size": 12.752293577981652, "title": "Betweenness: 0.018"}]);
+                  edges = new vis.DataSet([{"color": "#AAAAAA", "from": "Animation", "to": "Comedy", "width": 1.618453309560954}, {"color": "#AAAAAA", "from": "Animation", "to": "Family", "width": 1.9549810563851127}, {"color": "#AAAAAA", "from": "Animation", "to": "Adventure", "width": 1.5449075105861376}, {"color": "#AAAAAA", "from": "Animation", "to": "Drama", "width": 1.2373523512369067}, {"color": "#AAAAAA", "from": "Animation", "to": "Romance", "width": 1.0802317806997994}, {"color": "#AAAAAA", "from": "Animation", "to": "Fantasy", "width": 1.446846445286383}, {"color": "#AAAAAA", "from": "Animation", "to": "Science_Fiction", "width": 1.3220414530866949}, {"color": "#AAAAAA", "from": "Animation", "to": "Music", "width": 1.0746601292623132}, {"color": "#AAAAAA", "from": "Animation", "to": "Action", "width": 1.369957655449075}, {"color": "#AAAAAA", "from": "Animation", "to": "Crime", "width": 1.0300869177624248}, {"color": "#AAAAAA", "from": "Animation", "to": "Thriller", "width": 1.0590595052373524}, {"color": "#AAAAAA", "from": "Animation", "to": "Mystery", "width": 1.0546021840873634}, {"color": "#AAAAAA", "from": "Animation", "to": "Horror", "width": 1.0646311566748383}, {"color": "#AAAAAA", "from": "Animation", "to": "Western", "width": 1.0078003120124805}, {"color": "#AAAAAA", "from": "Animation", "to": "War", "width": 1.0189436148874527}, {"color": "#AAAAAA", "from": "Animation", "to": "Foreign", "width": 1.0289725874749276}, {"color": "#AAAAAA", "from": "Animation", "to": "TV_Movie", "width": 1.025629596612436}, {"color": "#AAAAAA", "from": "Animation", "to": "History", "width": 1.0144862937374637}, {"color": "#AAAAAA", "from": "Animation", "to": "Documentary", "width": 1.031201248049922}, {"color": "#AAAAAA", "from": "Comedy", "to": "Family", "width": 2.3260530421216847}, {"color": "#AAAAAA", "from": "Comedy", "to": "Romance", "width": 4.473367506128817}, {"color": "#AAAAAA", "from": "Comedy", "to": "Drama", "width": 5.669043904613328}, {"color": "#AAAAAA", "from": "Comedy", "to": "Horror", "width": 1.7109427234232226}, {"color": "#AAAAAA", "from": "Comedy", "to": "Crime", "width": 1.9761533318475597}, {"color": "#AAAAAA", "from": "Comedy", "to": "Adventure", "width": 1.9304657900601738}, {"color": "#AAAAAA", "from": "Comedy", "to": "Action", "width": 2.484287942946289}, {"color": "#AAAAAA", "from": "Comedy", "to": "Thriller", "width": 1.713171383998217}, {"color": "#AAAAAA", "from": "Comedy", "to": "Fantasy", "width": 1.8145754401604635}, {"color": "#AAAAAA", "from": "Comedy", "to": "Music", "width": 1.6373969244484066}, {"color": "#AAAAAA", "from": "Comedy", "to": "History", "width": 1.0869177624247828}, {"color": "#AAAAAA", "from": "Comedy", "to": "Science_Fiction", "width": 1.619567639848451}, {"color": "#AAAAAA", "from": "Comedy", "to": "Mystery", "width": 1.3320704256741698}, {"color": "#AAAAAA", "from": "Comedy", "to": "TV_Movie", "width": 1.1905504791620236}, {"color": "#AAAAAA", "from": "Comedy", "to": "Western", "width": 1.1727211945620681}, {"color": "#AAAAAA", "from": "Comedy", "to": "Foreign", "width": 1.436817472698908}, {"color": "#AAAAAA", "from": "Comedy", "to": "War", "width": 1.130376643637174}, {"color": "#AAAAAA", "from": "Comedy", "to": "Documentary", "width": 1.1738355248495653}, {"color": "#AAAAAA", "from": "Family", "to": "Adventure", "width": 1.873634945397816}, {"color": "#AAAAAA", "from": "Family", "to": "Fantasy", "width": 1.6830844662357922}, {"color": "#AAAAAA", "from": "Family", "to": "Action", "width": 1.3097838199242255}, {"color": "#AAAAAA", "from": "Family", "to": "Drama", "width": 1.9237798083351905}, {"color": "#AAAAAA", "from": "Family", "to": "History", "width": 1.021172275462447}, {"color": "#AAAAAA", "from": "Family", "to": "Romance", "width": 1.3053264987742366}, {"color": "#AAAAAA", "from": "Family", "to": "Music", "width": 1.15600624024961}, {"color": "#AAAAAA", "from": "Family", "to": "Science_Fiction", "width": 1.2518386449743704}, {"color": "#AAAAAA", "from": "Family", "to": "Crime", "width": 1.041230220637397}, {"color": "#AAAAAA", "from": "Family", "to": "TV_Movie", "width": 1.1537775796746155}, {"color": "#AAAAAA", "from": "Family", "to": "Documentary", "width": 1.0557165143748608}, {"color": "#AAAAAA", "from": "Family", "to": "Western", "width": 1.0245152663249386}, {"color": "#AAAAAA", "from": "Family", "to": "Thriller", "width": 1.0456875417873859}, {"color": "#AAAAAA", "from": "Family", "to": "Mystery", "width": 1.0557165143748608}, {"color": "#AAAAAA", "from": "Family", "to": "War", "width": 1.0111433028749721}, {"color": "#AAAAAA", "from": "Family", "to": "Foreign", "width": 1.0512591932248718}, {"color": "#AAAAAA", "from": "Family", "to": "Horror", "width": 1.0278582571874304}, {"color": "#AAAAAA", "from": "Adventure", "to": "Fantasy", "width": 1.7599732560731}, {"color": "#AAAAAA", "from": "Adventure", "to": "Action", "width": 2.931134388232672}, {"color": "#AAAAAA", "from": "Adventure", "to": "Drama", "width": 2.1622464898595943}, {"color": "#AAAAAA", "from": "Adventure", "to": "Thriller", "width": 1.6206819701359483}, {"color": "#AAAAAA", "from": "Adventure", "to": "Crime", "width": 1.2685535992868286}, {"color": "#AAAAAA", "from": "Adventure", "to": "Science_Fiction", "width": 1.676398484510809}, {"color": "#AAAAAA", "from": "Adventure", "to": "Romance", "width": 1.3510140405616224}, {"color": "#AAAAAA", "from": "Adventure", "to": "History", "width": 1.1916648094495208}, {"color": "#AAAAAA", "from": "Adventure", "to": "Music", "width": 1.041230220637397}, {"color": "#AAAAAA", "from": "Adventure", "to": "Mystery", "width": 1.1392912859371518}, {"color": "#AAAAAA", "from": "Adventure", "to": "War", "width": 1.1660352128370848}, {"color": "#AAAAAA", "from": "Adventure", "to": "Western", "width": 1.1582349008246045}, {"color": "#AAAAAA", "from": "Adventure", "to": "Documentary", "width": 1.052373523512369}, {"color": "#AAAAAA", "from": "Adventure", "to": "Horror", "width": 1.1704925339870738}, {"color": "#AAAAAA", "from": "Adventure", "to": "Foreign", "width": 1.066859817249833}, {"color": "#AAAAAA", "from": "Adventure", "to": "TV_Movie", "width": 1.056830844662358}, {"color": "#AAAAAA", "from": "Fantasy", "to": "Drama", "width": 1.7610875863605973}, {"color": "#AAAAAA", "from": "Fantasy", "to": "Science_Fiction", "width": 1.577223088923557}, {"color": "#AAAAAA", "from": "Fantasy", "to": "Thriller", "width": 1.2574102964118565}, {"color": "#AAAAAA", "from": "Fantasy", "to": "Action", "width": 1.5582794740361043}, {"color": "#AAAAAA", "from": "Fantasy", "to": "Crime", "width": 1.0401158903498997}, {"color": "#AAAAAA", "from": "Fantasy", "to": "Horror", "width": 1.4100735457989748}, {"color": "#AAAAAA", "from": "Fantasy", "to": "Mystery", "width": 1.1493202585246267}, {"color": "#AAAAAA", "from": "Fantasy", "to": "Romance", "width": 1.3632716737240917}, {"color": "#AAAAAA", "from": "Fantasy", "to": "Music", "width": 1.0846891018497882}, {"color": "#AAAAAA", "from": "Fantasy", "to": "Western", "width": 1.010028972587475}, {"color": "#AAAAAA", "from": "Fantasy", "to": "Foreign", "width": 1.0490305326498774}, {"color": "#AAAAAA", "from": "Fantasy", "to": "History", "width": 1.0122576331624693}, {"color": "#AAAAAA", "from": "Fantasy", "to": "TV_Movie", "width": 1.0646311566748383}, {"color": "#AAAAAA", "from": "Fantasy", "to": "Documentary", "width": 1.0089146422999777}, {"color": "#AAAAAA", "from": "Fantasy", "to": "War", "width": 1.0178292845999555}, {"color": "#AAAAAA", "from": "Romance", "to": "Drama", "width": 6.0}, {"color": "#AAAAAA", "from": "Romance", "to": "History", "width": 1.2094940940494763}, {"color": "#AAAAAA", "from": "Romance", "to": "Action", "width": 1.489190996211277}, {"color": "#AAAAAA", "from": "Romance", "to": "Thriller", "width": 1.5527078225986184}, {"color": "#AAAAAA", "from": "Romance", "to": "Horror", "width": 1.1270336527746825}, {"color": "#AAAAAA", "from": "Romance", "to": "War", "width": 1.2061511031869847}, {"color": "#AAAAAA", "from": "Romance", "to": "Mystery", "width": 1.2161800757744596}, {"color": "#AAAAAA", "from": "Romance", "to": "Crime", "width": 1.3621573434365946}, {"color": "#AAAAAA", "from": "Romance", "to": "Music", "width": 1.4981056385112548}, {"color": "#AAAAAA", "from": "Romance", "to": "Science_Fiction", "width": 1.2005794517494985}, {"color": "#AAAAAA", "from": "Romance", "to": "Western", "width": 1.1248049921996879}, {"color": "#AAAAAA", "from": "Romance", "to": "Foreign", "width": 1.3822152886115444}, {"color": "#AAAAAA", "from": "Romance", "to": "TV_Movie", "width": 1.1526632493871183}, {"color": "#AAAAAA", "from": "Romance", "to": "Documentary", "width": 1.031201248049922}, {"color": "#AAAAAA", "from": "Drama", "to": "Action", "width": 3.587474927568531}, {"color": "#AAAAAA", "from": "Drama", "to": "Crime", "width": 3.811455315355471}, {"color": "#AAAAAA", "from": "Drama", "to": "Thriller", "width": 4.817695564965456}, {"color": "#AAAAAA", "from": "Drama", "to": "History", "width": 2.196790728772008}, {"color": "#AAAAAA", "from": "Drama", "to": "Science_Fiction", "width": 1.6886561176732784}, {"color": "#AAAAAA", "from": "Drama", "to": "War", "width": 2.1020726543347448}, {"color": "#AAAAAA", "from": "Drama", "to": "Foreign", "width": 2.0731000668598174}, {"color": "#AAAAAA", "from": "Drama", "to": "Mystery", "width": 2.310452418096724}, {"color": "#AAAAAA", "from": "Drama", "to": "Music", "width": 1.7009137508357477}, {"color": "#AAAAAA", "from": "Drama", "to": "Horror", "width": 1.9193224871852017}, {"color": "#AAAAAA", "from": "Drama", "to": "Documentary", "width": 1.2351236906619123}, {"color": "#AAAAAA", "from": "Drama", "to": "Western", "width": 1.3053264987742366}, {"color": "#AAAAAA", "from": "Drama", "to": "TV_Movie", "width": 1.432360151548919}, {"color": "#AAAAAA", "from": "Action", "to": "Crime", "width": 2.524403833296189}, {"color": "#AAAAAA", "from": "Action", "to": "Thriller", "width": 3.638734120793403}, {"color": "#AAAAAA", "from": "Action", "to": "History", "width": 1.2774682415868064}, {"color": "#AAAAAA", "from": "Action", "to": "Science_Fiction", "width": 2.1990193893470025}, {"color": "#AAAAAA", "from": "Action", "to": "Horror", "width": 1.5404501894361489}, {"color": "#AAAAAA", "from": "Action", "to": "Music", "width": 1.041230220637397}, {"color": "#AAAAAA", "from": "Action", "to": "War", "width": 1.3677289948740807}, {"color": "#AAAAAA", "from": "Action", "to": "Mystery", "width": 1.275239581011812}, {"color": "#AAAAAA", "from": "Action", "to": "Western", "width": 1.4078448852239804}, {"color": "#AAAAAA", "from": "Action", "to": "Foreign", "width": 1.3967015823490083}, {"color": "#AAAAAA", "from": "Action", "to": "Documentary", "width": 1.0390015600624025}, {"color": "#AAAAAA", "from": "Action", "to": "TV_Movie", "width": 1.0846891018497882}, {"color": "#AAAAAA", "from": "Crime", "to": "Thriller", "width": 3.2464898595943836}, {"color": "#AAAAAA", "from": "Crime", "to": "History", "width": 1.066859817249833}, {"color": "#AAAAAA", "from": "Crime", "to": "Mystery", "width": 1.7789168709605527}, {"color": "#AAAAAA", "from": "Crime", "to": "Horror", "width": 1.2741252507243146}, {"color": "#AAAAAA", "from": "Crime", "to": "Science_Fiction", "width": 1.0869177624247828}, {"color": "#AAAAAA", "from": "Crime", "to": "Music", "width": 1.0434588812123913}, {"color": "#AAAAAA", "from": "Crime", "to": "Documentary", "width": 1.0601738355248496}, {"color": "#AAAAAA", "from": "Crime", "to": "Western", "width": 1.041230220637397}, {"color": "#AAAAAA", "from": "Crime", "to": "TV_Movie", "width": 1.0746601292623132}, {"color": "#AAAAAA", "from": "Crime", "to": "War", "width": 1.0167149543124583}, {"color": "#AAAAAA", "from": "Crime", "to": "Foreign", "width": 1.130376643637174}, {"color": "#AAAAAA", "from": "Thriller", "to": "Science_Fiction", "width": 1.9170938266102073}, {"color": "#AAAAAA", "from": "Thriller", "to": "Mystery", "width": 2.664809449520838}, {"color": "#AAAAAA", "from": "Thriller", "to": "Horror", "width": 3.1450858034321376}, {"color": "#AAAAAA", "from": "Thriller", "to": "Foreign", "width": 1.3153554713617117}, {"color": "#AAAAAA", "from": "Thriller", "to": "War", "width": 1.1381769556496546}, {"color": "#AAAAAA", "from": "Thriller", "to": "Music", "width": 1.0267439268999332}, {"color": "#AAAAAA", "from": "Thriller", "to": "History", "width": 1.1014040561622465}, {"color": "#AAAAAA", "from": "Thriller", "to": "Documentary", "width": 1.0289725874749276}, {"color": "#AAAAAA", "from": "Thriller", "to": "Western", "width": 1.0479162023623803}, {"color": "#AAAAAA", "from": "Thriller", "to": "TV_Movie", "width": 1.1147760196122132}, {"color": "#AAAAAA", "from": "Horror", "to": "Science_Fiction", "width": 1.9683530198350792}, {"color": "#AAAAAA", "from": "Horror", "to": "Mystery", "width": 1.7376866503231558}, {"color": "#AAAAAA", "from": "Horror", "to": "Music", "width": 1.031201248049922}, {"color": "#AAAAAA", "from": "Horror", "to": "Western", "width": 1.0245152663249386}, {"color": "#AAAAAA", "from": "Horror", "to": "Foreign", "width": 1.1593492311121016}, {"color": "#AAAAAA", "from": "Horror", "to": "War", "width": 1.0200579451749499}, {"color": "#AAAAAA", "from": "Horror", "to": "History", "width": 1.0178292845999555}, {"color": "#AAAAAA", "from": "Horror", "to": "Documentary", "width": 1.031201248049922}, {"color": "#AAAAAA", "from": "Horror", "to": "TV_Movie", "width": 1.066859817249833}, {"color": "#AAAAAA", "from": "History", "to": "War", "width": 1.3811009583240472}, {"color": "#AAAAAA", "from": "History", "to": "Western", "width": 1.0434588812123913}, {"color": "#AAAAAA", "from": "History", "to": "Documentary", "width": 1.20392244261199}, {"color": "#AAAAAA", "from": "History", "to": "Mystery", "width": 1.0222866057499442}, {"color": "#AAAAAA", "from": "History", "to": "Music", "width": 1.031201248049922}, {"color": "#AAAAAA", "from": "History", "to": "Foreign", "width": 1.0456875417873859}, {"color": "#AAAAAA", "from": "History", "to": "TV_Movie", "width": 1.0390015600624025}, {"color": "#AAAAAA", "from": "History", "to": "Science_Fiction", "width": 1.0044573211499888}, {"color": "#AAAAAA", "from": "Science_Fiction", "to": "Mystery", "width": 1.208379763761979}, {"color": "#AAAAAA", "from": "Science_Fiction", "to": "War", "width": 1.0278582571874304}, {"color": "#AAAAAA", "from": "Science_Fiction", "to": "Western", "width": 1.0178292845999555}, {"color": "#AAAAAA", "from": "Science_Fiction", "to": "Music", "width": 1.0289725874749276}, {"color": "#AAAAAA", "from": "Science_Fiction", "to": "Foreign", "width": 1.0813461109872966}, {"color": "#AAAAAA", "from": "Science_Fiction", "to": "TV_Movie", "width": 1.0757744595498107}, {"color": "#AAAAAA", "from": "Science_Fiction", "to": "Documentary", "width": 1.0222866057499442}, {"color": "#AAAAAA", "from": "Mystery", "to": "Music", "width": 1.0167149543124583}, {"color": "#AAAAAA", "from": "Mystery", "to": "Foreign", "width": 1.0702028081123245}, {"color": "#AAAAAA", "from": "Mystery", "to": "War", "width": 1.0200579451749499}, {"color": "#AAAAAA", "from": "Mystery", "to": "Documentary", "width": 1.0178292845999555}, {"color": "#AAAAAA", "from": "Mystery", "to": "Western", "width": 1.0111433028749721}, {"color": "#AAAAAA", "from": "Mystery", "to": "TV_Movie", "width": 1.0702028081123245}, {"color": "#AAAAAA", "from": "War", "to": "Western", "width": 1.035658569199911}, {"color": "#AAAAAA", "from": "War", "to": "Documentary", "width": 1.08803209271228}, {"color": "#AAAAAA", "from": "War", "to": "TV_Movie", "width": 1.0200579451749499}, {"color": "#AAAAAA", "from": "War", "to": "Music", "width": 1.0122576331624693}, {"color": "#AAAAAA", "from": "War", "to": "Foreign", "width": 1.0323155783374192}, {"color": "#AAAAAA", "from": "Foreign", "to": "Documentary", "width": 1.1816358368620459}, {"color": "#AAAAAA", "from": "Foreign", "to": "Music", "width": 1.0345442389124135}, {"color": "#AAAAAA", "from": "Foreign", "to": "Western", "width": 1.0078003120124805}, {"color": "#AAAAAA", "from": "Foreign", "to": "TV_Movie", "width": 1.0022286605749944}, {"color": "#AAAAAA", "from": "Music", "to": "Documentary", "width": 1.3766436371740585}, {"color": "#AAAAAA", "from": "Music", "to": "TV_Movie", "width": 1.0390015600624025}, {"color": "#AAAAAA", "from": "Music", "to": "Western", "width": 1.0234009360374414}, {"color": "#AAAAAA", "from": "Documentary", "to": "TV_Movie", "width": 1.0501448629373746}, {"color": "#AAAAAA", "from": "Documentary", "to": "Western", "width": 1.0044573211499888}, {"color": "#AAAAAA", "from": "Western", "to": "TV_Movie", "width": 1.0234009360374414}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.005,
+            "damping": 0.4,
+            "gravitationalConstant": -50,
+            "springConstant": 0.08,
+            "springLength": 100
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

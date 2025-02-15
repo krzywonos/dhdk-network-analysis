@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 1200px;
+                 background-color: #1E1E1E;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body><h1 style='text-align:center; color:black;'>Louvain Modularity Network for 1960s<br>Modularity Score: 0.1246</h1>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#2A9D8F", "font": {"color": "white"}, "id": "[Documentary", "label": "[Documentary", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "History", "label": "History", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "Romance", "label": "Romance", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "Comedy", "label": "Comedy", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "War", "label": "War", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "Music", "label": "Music", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "Drama", "label": "Drama", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "Horror", "label": "Horror", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "Science_Fiction", "label": "Science_Fiction", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "Thriller", "label": "Thriller", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "Crime", "label": "Crime", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "Mystery", "label": "Mystery", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "TV_Movie", "label": "TV_Movie", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "Animation", "label": "Animation", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "Adventure", "label": "Adventure", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "Fantasy", "label": "Fantasy", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "Foreign", "label": "Foreign", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "Western", "label": "Western", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "Action", "label": "Action", "shape": "dot", "size": 15}, {"color": "#2A9D8F", "font": {"color": "white"}, "id": "Family]", "label": "Family]", "shape": "dot", "size": 15}]);
+                  edges = new vis.DataSet([{"color": "gray", "from": "[Documentary", "to": "History", "width": 1.5}, {"color": "gray", "from": "[Documentary", "to": "Romance", "width": 1.5}, {"color": "gray", "from": "[Documentary", "to": "Comedy", "width": 1.5}, {"color": "gray", "from": "[Documentary", "to": "War", "width": 1.5}, {"color": "gray", "from": "[Documentary", "to": "Music", "width": 1.5}, {"color": "gray", "from": "[Documentary", "to": "Drama", "width": 1.5}, {"color": "gray", "from": "[Documentary", "to": "Horror", "width": 1.5}, {"color": "gray", "from": "[Documentary", "to": "Science_Fiction", "width": 1.5}, {"color": "gray", "from": "[Documentary", "to": "Thriller", "width": 1.5}, {"color": "gray", "from": "[Documentary", "to": "Crime", "width": 1.5}, {"color": "gray", "from": "[Documentary", "to": "Mystery", "width": 1.5}, {"color": "gray", "from": "[Documentary", "to": "TV_Movie", "width": 1.5}, {"color": "gray", "from": "[Documentary", "to": "Animation", "width": 1.5}, {"color": "gray", "from": "[Documentary", "to": "Adventure", "width": 1.5}, {"color": "gray", "from": "[Documentary", "to": "Fantasy", "width": 1.5}, {"color": "gray", "from": "[Documentary", "to": "Foreign", "width": 1.5}, {"color": "gray", "from": "[Documentary", "to": "Western", "width": 1.5}, {"color": "gray", "from": "[Documentary", "to": "Action", "width": 1.5}, {"color": "gray", "from": "[Documentary", "to": "Family]", "width": 1.5}, {"color": "gray", "from": "History", "to": "Romance", "width": 1.5}, {"color": "gray", "from": "History", "to": "Comedy", "width": 1.5}, {"color": "gray", "from": "History", "to": "War", "width": 1.5}, {"color": "gray", "from": "History", "to": "Music", "width": 1.5}, {"color": "gray", "from": "History", "to": "Drama", "width": 1.5}, {"color": "gray", "from": "History", "to": "Horror", "width": 1.5}, {"color": "gray", "from": "History", "to": "Science_Fiction", "width": 1.5}, {"color": "gray", "from": "History", "to": "Thriller", "width": 1.5}, {"color": "gray", "from": "History", "to": "Crime", "width": 1.5}, {"color": "gray", "from": "History", "to": "Mystery", "width": 1.5}, {"color": "gray", "from": "History", "to": "TV_Movie", "width": 1.5}, {"color": "gray", "from": "History", "to": "Animation", "width": 1.5}, {"color": "gray", "from": "History", "to": "Adventure", "width": 1.5}, {"color": "gray", "from": "History", "to": "Fantasy", "width": 1.5}, {"color": "gray", "from": "History", "to": "Foreign", "width": 1.5}, {"color": "gray", "from": "History", "to": "Western", "width": 1.5}, {"color": "gray", "from": "History", "to": "Action", "width": 1.5}, {"color": "gray", "from": "History", "to": "Family]", "width": 1.5}, {"color": "gray", "from": "Romance", "to": "Comedy", "width": 1.5}, {"color": "gray", "from": "Romance", "to": "War", "width": 1.5}, {"color": "gray", "from": "Romance", "to": "Music", "width": 1.5}, {"color": "gray", "from": "Romance", "to": "Drama", "width": 1.5}, {"color": "gray", "from": "Romance", "to": "Horror", "width": 1.5}, {"color": "gray", "from": "Romance", "to": "Science_Fiction", "width": 1.5}, {"color": "gray", "from": "Romance", "to": "Thriller", "width": 1.5}, {"color": "gray", "from": "Romance", "to": "Crime", "width": 1.5}, {"color": "gray", "from": "Romance", "to": "Mystery", "width": 1.5}, {"color": "gray", "from": "Romance", "to": "TV_Movie", "width": 1.5}, {"color": "gray", "from": "Romance", "to": "Animation", "width": 1.5}, {"color": "gray", "from": "Romance", "to": "Adventure", "width": 1.5}, {"color": "gray", "from": "Romance", "to": "Fantasy", "width": 1.5}, {"color": "gray", "from": "Romance", "to": "Foreign", "width": 1.5}, {"color": "gray", "from": "Romance", "to": "Western", "width": 1.5}, {"color": "gray", "from": "Romance", "to": "Action", "width": 1.5}, {"color": "gray", "from": "Romance", "to": "Family]", "width": 1.5}, {"color": "gray", "from": "Comedy", "to": "War", "width": 1.5}, {"color": "gray", "from": "Comedy", "to": "Music", "width": 1.5}, {"color": "gray", "from": "Comedy", "to": "Drama", "width": 1.5}, {"color": "gray", "from": "Comedy", "to": "Horror", "width": 1.5}, {"color": "gray", "from": "Comedy", "to": "Science_Fiction", "width": 1.5}, {"color": "gray", "from": "Comedy", "to": "Thriller", "width": 1.5}, {"color": "gray", "from": "Comedy", "to": "Crime", "width": 1.5}, {"color": "gray", "from": "Comedy", "to": "Mystery", "width": 1.5}, {"color": "gray", "from": "Comedy", "to": "TV_Movie", "width": 1.5}, {"color": "gray", "from": "Comedy", "to": "Animation", "width": 1.5}, {"color": "gray", "from": "Comedy", "to": "Adventure", "width": 1.5}, {"color": "gray", "from": "Comedy", "to": "Fantasy", "width": 1.5}, {"color": "gray", "from": "Comedy", "to": "Foreign", "width": 1.5}, {"color": "gray", "from": "Comedy", "to": "Western", "width": 1.5}, {"color": "gray", "from": "Comedy", "to": "Action", "width": 1.5}, {"color": "gray", "from": "Comedy", "to": "Family]", "width": 1.5}, {"color": "gray", "from": "War", "to": "Music", "width": 1.5}, {"color": "gray", "from": "War", "to": "Drama", "width": 1.5}, {"color": "gray", "from": "War", "to": "Horror", "width": 1.5}, {"color": "gray", "from": "War", "to": "Science_Fiction", "width": 1.5}, {"color": "gray", "from": "War", "to": "Thriller", "width": 1.5}, {"color": "gray", "from": "War", "to": "Crime", "width": 1.5}, {"color": "gray", "from": "War", "to": "Mystery", "width": 1.5}, {"color": "gray", "from": "War", "to": "TV_Movie", "width": 1.5}, {"color": "gray", "from": "War", "to": "Animation", "width": 1.5}, {"color": "gray", "from": "War", "to": "Adventure", "width": 1.5}, {"color": "gray", "from": "War", "to": "Fantasy", "width": 1.5}, {"color": "gray", "from": "War", "to": "Foreign", "width": 1.5}, {"color": "gray", "from": "War", "to": "Western", "width": 1.5}, {"color": "gray", "from": "War", "to": "Action", "width": 1.5}, {"color": "gray", "from": "War", "to": "Family]", "width": 1.5}, {"color": "gray", "from": "Music", "to": "Drama", "width": 1.5}, {"color": "gray", "from": "Music", "to": "Horror", "width": 1.5}, {"color": "gray", "from": "Music", "to": "Science_Fiction", "width": 1.5}, {"color": "gray", "from": "Music", "to": "Thriller", "width": 1.5}, {"color": "gray", "from": "Music", "to": "Crime", "width": 1.5}, {"color": "gray", "from": "Music", "to": "Mystery", "width": 1.5}, {"color": "gray", "from": "Music", "to": "TV_Movie", "width": 1.5}, {"color": "gray", "from": "Music", "to": "Animation", "width": 1.5}, {"color": "gray", "from": "Music", "to": "Adventure", "width": 1.5}, {"color": "gray", "from": "Music", "to": "Fantasy", "width": 1.5}, {"color": "gray", "from": "Music", "to": "Foreign", "width": 1.5}, {"color": "gray", "from": "Music", "to": "Western", "width": 1.5}, {"color": "gray", "from": "Music", "to": "Action", "width": 1.5}, {"color": "gray", "from": "Music", "to": "Family]", "width": 1.5}, {"color": "gray", "from": "Drama", "to": "Horror", "width": 1.5}, {"color": "gray", "from": "Drama", "to": "Science_Fiction", "width": 1.5}, {"color": "gray", "from": "Drama", "to": "Thriller", "width": 1.5}, {"color": "gray", "from": "Drama", "to": "Crime", "width": 1.5}, {"color": "gray", "from": "Drama", "to": "Mystery", "width": 1.5}, {"color": "gray", "from": "Drama", "to": "TV_Movie", "width": 1.5}, {"color": "gray", "from": "Drama", "to": "Animation", "width": 1.5}, {"color": "gray", "from": "Drama", "to": "Adventure", "width": 1.5}, {"color": "gray", "from": "Drama", "to": "Fantasy", "width": 1.5}, {"color": "gray", "from": "Drama", "to": "Foreign", "width": 1.5}, {"color": "gray", "from": "Drama", "to": "Western", "width": 1.5}, {"color": "gray", "from": "Drama", "to": "Action", "width": 1.5}, {"color": "gray", "from": "Drama", "to": "Family]", "width": 1.5}, {"color": "gray", "from": "Horror", "to": "Science_Fiction", "width": 1.5}, {"color": "gray", "from": "Horror", "to": "Thriller", "width": 1.5}, {"color": "gray", "from": "Horror", "to": "Crime", "width": 1.5}, {"color": "gray", "from": "Horror", "to": "Mystery", "width": 1.5}, {"color": "gray", "from": "Horror", "to": "TV_Movie", "width": 1.5}, {"color": "gray", "from": "Horror", "to": "Animation", "width": 1.5}, {"color": "gray", "from": "Horror", "to": "Adventure", "width": 1.5}, {"color": "gray", "from": "Horror", "to": "Fantasy", "width": 1.5}, {"color": "gray", "from": "Horror", "to": "Foreign", "width": 1.5}, {"color": "gray", "from": "Horror", "to": "Western", "width": 1.5}, {"color": "gray", "from": "Horror", "to": "Action", "width": 1.5}, {"color": "gray", "from": "Horror", "to": "Family]", "width": 1.5}, {"color": "gray", "from": "Science_Fiction", "to": "Thriller", "width": 1.5}, {"color": "gray", "from": "Science_Fiction", "to": "Crime", "width": 1.5}, {"color": "gray", "from": "Science_Fiction", "to": "Mystery", "width": 1.5}, {"color": "gray", "from": "Science_Fiction", "to": "TV_Movie", "width": 1.5}, {"color": "gray", "from": "Science_Fiction", "to": "Animation", "width": 1.5}, {"color": "gray", "from": "Science_Fiction", "to": "Adventure", "width": 1.5}, {"color": "gray", "from": "Science_Fiction", "to": "Fantasy", "width": 1.5}, {"color": "gray", "from": "Science_Fiction", "to": "Foreign", "width": 1.5}, {"color": "gray", "from": "Science_Fiction", "to": "Western", "width": 1.5}, {"color": "gray", "from": "Science_Fiction", "to": "Action", "width": 1.5}, {"color": "gray", "from": "Science_Fiction", "to": "Family]", "width": 1.5}, {"color": "gray", "from": "Thriller", "to": "Crime", "width": 1.5}, {"color": "gray", "from": "Thriller", "to": "Mystery", "width": 1.5}, {"color": "gray", "from": "Thriller", "to": "TV_Movie", "width": 1.5}, {"color": "gray", "from": "Thriller", "to": "Animation", "width": 1.5}, {"color": "gray", "from": "Thriller", "to": "Adventure", "width": 1.5}, {"color": "gray", "from": "Thriller", "to": "Fantasy", "width": 1.5}, {"color": "gray", "from": "Thriller", "to": "Foreign", "width": 1.5}, {"color": "gray", "from": "Thriller", "to": "Western", "width": 1.5}, {"color": "gray", "from": "Thriller", "to": "Action", "width": 1.5}, {"color": "gray", "from": "Thriller", "to": "Family]", "width": 1.5}, {"color": "gray", "from": "Crime", "to": "Mystery", "width": 1.5}, {"color": "gray", "from": "Crime", "to": "TV_Movie", "width": 1.5}, {"color": "gray", "from": "Crime", "to": "Animation", "width": 1.5}, {"color": "gray", "from": "Crime", "to": "Adventure", "width": 1.5}, {"color": "gray", "from": "Crime", "to": "Fantasy", "width": 1.5}, {"color": "gray", "from": "Crime", "to": "Foreign", "width": 1.5}, {"color": "gray", "from": "Crime", "to": "Western", "width": 1.5}, {"color": "gray", "from": "Crime", "to": "Action", "width": 1.5}, {"color": "gray", "from": "Crime", "to": "Family]", "width": 1.5}, {"color": "gray", "from": "Mystery", "to": "TV_Movie", "width": 1.5}, {"color": "gray", "from": "Mystery", "to": "Animation", "width": 1.5}, {"color": "gray", "from": "Mystery", "to": "Adventure", "width": 1.5}, {"color": "gray", "from": "Mystery", "to": "Fantasy", "width": 1.5}, {"color": "gray", "from": "Mystery", "to": "Foreign", "width": 1.5}, {"color": "gray", "from": "Mystery", "to": "Western", "width": 1.5}, {"color": "gray", "from": "Mystery", "to": "Action", "width": 1.5}, {"color": "gray", "from": "Mystery", "to": "Family]", "width": 1.5}, {"color": "gray", "from": "TV_Movie", "to": "Animation", "width": 1.5}, {"color": "gray", "from": "TV_Movie", "to": "Adventure", "width": 1.5}, {"color": "gray", "from": "TV_Movie", "to": "Fantasy", "width": 1.5}, {"color": "gray", "from": "TV_Movie", "to": "Foreign", "width": 1.5}, {"color": "gray", "from": "TV_Movie", "to": "Western", "width": 1.5}, {"color": "gray", "from": "TV_Movie", "to": "Action", "width": 1.5}, {"color": "gray", "from": "TV_Movie", "to": "Family]", "width": 1.5}, {"color": "gray", "from": "Animation", "to": "Adventure", "width": 1.5}, {"color": "gray", "from": "Animation", "to": "Fantasy", "width": 1.5}, {"color": "gray", "from": "Animation", "to": "Foreign", "width": 1.5}, {"color": "gray", "from": "Animation", "to": "Western", "width": 1.5}, {"color": "gray", "from": "Animation", "to": "Action", "width": 1.5}, {"color": "gray", "from": "Animation", "to": "Family]", "width": 1.5}, {"color": "gray", "from": "Adventure", "to": "Fantasy", "width": 1.5}, {"color": "gray", "from": "Adventure", "to": "Foreign", "width": 1.5}, {"color": "gray", "from": "Adventure", "to": "Western", "width": 1.5}, {"color": "gray", "from": "Adventure", "to": "Action", "width": 1.5}, {"color": "gray", "from": "Adventure", "to": "Family]", "width": 1.5}, {"color": "gray", "from": "Fantasy", "to": "Foreign", "width": 1.5}, {"color": "gray", "from": "Fantasy", "to": "Western", "width": 1.5}, {"color": "gray", "from": "Fantasy", "to": "Action", "width": 1.5}, {"color": "gray", "from": "Fantasy", "to": "Family]", "width": 1.5}, {"color": "gray", "from": "Foreign", "to": "Western", "width": 1.5}, {"color": "gray", "from": "Foreign", "to": "Action", "width": 1.5}, {"color": "gray", "from": "Foreign", "to": "Family]", "width": 1.5}, {"color": "gray", "from": "Western", "to": "Action", "width": 1.5}, {"color": "gray", "from": "Western", "to": "Family]", "width": 1.5}, {"color": "gray", "from": "Action", "to": "Family]", "width": 1.5}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "barnesHut": {
+            "avoidOverlap": 0,
+            "centralGravity": 0,
+            "damping": 1,
+            "gravitationalConstant": 0,
+            "springConstant": 0.001,
+            "springLength": 250
+        },
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
