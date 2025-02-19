@@ -8,7 +8,8 @@ from util import decade_graphs
 from k_core import weighted_kcore
 
 
-if __name__ == "__main__":
+
+def main():
     data = pd.read_csv("data/genre_cooccurrences_in_a_year.csv")
     graphs_by_decade = decade_graphs(data, timestamp_label="release_year", weight_label="count")
     for decade, g in graphs_by_decade.items():
@@ -24,3 +25,6 @@ if __name__ == "__main__":
         output_dir = "./plots/kc"
         os.makedirs(output_dir, exist_ok=True)
         fig.savefig(fname=os.path.join(output_dir, file_name), dpi=300, bbox_inches="tight")
+
+if __name__ == "__main__":
+    main()
