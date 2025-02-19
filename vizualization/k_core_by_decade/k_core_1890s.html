@@ -33,7 +33,7 @@
 
              #mynetwork {
                  width: 100%;
-                 height: 800px;
+                 height: 1200px;
                  background-color: #222222;
                  border: 1px solid lightgray;
                  position: relative;
@@ -49,7 +49,7 @@
     </head>
 
 
-    <body><h1 style='text-align:center; color:black;'>K-Core Network for 1890s</h1>
+    <body><h1 style='text-align:center; color:black;'>K-Core network for 1890s</h1>
         <div class="card" style="width: 100%">
             
             
@@ -88,7 +88,7 @@
                   
 
                   // parsing and collecting nodes and edges from the python
-                  nodes = new vis.DataSet([{"color": "violet", "font": {"color": "white"}, "id": "Fantasy", "label": "Fantasy", "shape": "dot", "size": 15}, {"color": "violet", "font": {"color": "white"}, "id": "Drama", "label": "Drama", "shape": "dot", "size": 15}, {"color": "violet", "font": {"color": "white"}, "id": "Family", "label": "Family", "shape": "dot", "size": 15}, {"color": "violet", "font": {"color": "white"}, "id": "Action", "label": "Action", "shape": "dot", "size": 15}, {"color": "violet", "font": {"color": "white"}, "id": "Horror", "label": "Horror", "shape": "dot", "size": 15}, {"color": "violet", "font": {"color": "white"}, "id": "Science_Fiction", "label": "Science_Fiction", "shape": "dot", "size": 15}, {"color": "violet", "font": {"color": "white"}, "id": "History", "label": "History", "shape": "dot", "size": 15}, {"color": "violet", "font": {"color": "white"}, "id": "War", "label": "War", "shape": "dot", "size": 15}]);
+                  nodes = new vis.DataSet([{"color": "violet", "font": {"color": "white"}, "id": "Fantasy", "label": "Fantasy", "shape": "dot", "size": 38.57142857142857, "title": "\u003cb style=\u0027font-size:16px\u0027\u003eFantasy\u003c/b\u003e", "x": -370.95586717367087, "y": 393.22547286969325}, {"color": "violet", "font": {"color": "white"}, "id": "Drama", "label": "Drama", "shape": "dot", "size": 38.57142857142857, "title": "\u003cb style=\u0027font-size:16px\u0027\u003eDrama\u003c/b\u003e", "x": 368.72839073229915, "y": -392.5958369725535}, {"color": "violet", "font": {"color": "white"}, "id": "Family", "label": "Family", "shape": "dot", "size": 31.428571428571427, "title": "\u003cb style=\u0027font-size:16px\u0027\u003eFamily\u003c/b\u003e", "x": -964.0811527334605, "y": 590.2735689251825}, {"color": "violet", "font": {"color": "white"}, "id": "Action", "label": "Action", "shape": "dot", "size": 31.428571428571427, "title": "\u003cb style=\u0027font-size:16px\u0027\u003eAction\u003c/b\u003e", "x": 530.0414777131264, "y": -999.9999999999999}, {"color": "violet", "font": {"color": "white"}, "id": "Horror", "label": "Horror", "shape": "dot", "size": 31.428571428571427, "title": "\u003cb style=\u0027font-size:16px\u0027\u003eHorror\u003c/b\u003e", "x": -530.0341615969736, "y": 996.8107495007553}, {"color": "violet", "font": {"color": "white"}, "id": "Science_Fiction", "label": "Science_Fiction", "shape": "dot", "size": 31.428571428571427, "title": "\u003cb style=\u0027font-size:16px\u0027\u003eScience_Fiction\u003c/b\u003e", "x": -935.139311346932, "y": 993.7674429362693}, {"color": "violet", "font": {"color": "white"}, "id": "History", "label": "History", "shape": "dot", "size": 31.428571428571427, "title": "\u003cb style=\u0027font-size:16px\u0027\u003eHistory\u003c/b\u003e", "x": 960.7947661380001, "y": -586.3790720100777}, {"color": "violet", "font": {"color": "white"}, "id": "War", "label": "War", "shape": "dot", "size": 31.428571428571427, "title": "\u003cb style=\u0027font-size:16px\u0027\u003eWar\u003c/b\u003e", "x": 940.6458582676111, "y": -995.1023252492687}]);
                   edges = new vis.DataSet([{"color": "gray", "from": "Fantasy", "to": "Family", "width": 1.5}, {"color": "gray", "from": "Fantasy", "to": "Drama", "width": 1.5}, {"color": "gray", "from": "Fantasy", "to": "Horror", "width": 1.5}, {"color": "gray", "from": "Fantasy", "to": "Science_Fiction", "width": 1.5}, {"color": "gray", "from": "Drama", "to": "Action", "width": 1.5}, {"color": "gray", "from": "Drama", "to": "History", "width": 1.5}, {"color": "gray", "from": "Drama", "to": "War", "width": 1.5}, {"color": "gray", "from": "Family", "to": "Horror", "width": 1.5}, {"color": "gray", "from": "Family", "to": "Science_Fiction", "width": 1.5}, {"color": "gray", "from": "Action", "to": "History", "width": 1.5}, {"color": "gray", "from": "Action", "to": "War", "width": 1.5}, {"color": "gray", "from": "Horror", "to": "Science_Fiction", "width": 1.5}, {"color": "gray", "from": "History", "to": "War", "width": 1.5}]);
 
                   nodeColors = {};
@@ -119,7 +119,7 @@
         "hideNodesOnDrag": false
     },
     "physics": {
-        "enabled": true,
+        "enabled": false,
         "stabilization": {
             "enabled": true,
             "fit": true,

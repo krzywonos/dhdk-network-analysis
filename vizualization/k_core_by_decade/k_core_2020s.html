@@ -33,7 +33,7 @@
 
              #mynetwork {
                  width: 100%;
-                 height: 800px;
+                 height: 1200px;
                  background-color: #222222;
                  border: 1px solid lightgray;
                  position: relative;
@@ -49,7 +49,7 @@
     </head>
 
 
-    <body><h1 style='text-align:center; color:black;'>K-Core Network for 2020s</h1>
+    <body><h1 style='text-align:center; color:black;'>K-Core network for 2020s</h1>
         <div class="card" style="width: 100%">
             
             
@@ -88,7 +88,7 @@
                   
 
                   // parsing and collecting nodes and edges from the python
-                  nodes = new vis.DataSet([{"color": "violet", "font": {"color": "white"}, "id": "Action", "label": "Action", "shape": "dot", "size": 15}, {"color": "violet", "font": {"color": "white"}, "id": "Adventure", "label": "Adventure", "shape": "dot", "size": 15}, {"color": "violet", "font": {"color": "white"}, "id": "Fantasy", "label": "Fantasy", "shape": "dot", "size": 15}, {"color": "violet", "font": {"color": "white"}, "id": "Science_Fiction", "label": "Science_Fiction", "shape": "dot", "size": 15}]);
+                  nodes = new vis.DataSet([{"color": "violet", "font": {"color": "white"}, "id": "Action", "label": "Action", "shape": "dot", "size": 60.0, "title": "\u003cb style=\u0027font-size:16px\u0027\u003eAction\u003c/b\u003e", "x": 356.3184624919795, "y": 1000.0}, {"color": "violet", "font": {"color": "white"}, "id": "Adventure", "label": "Adventure", "shape": "dot", "size": 60.0, "title": "\u003cb style=\u0027font-size:16px\u0027\u003eAdventure\u003c/b\u003e", "x": 993.9280383886341, "y": -354.15491046630785}, {"color": "violet", "font": {"color": "white"}, "id": "Fantasy", "label": "Fantasy", "shape": "dot", "size": 60.0, "title": "\u003cb style=\u0027font-size:16px\u0027\u003eFantasy\u003c/b\u003e", "x": -356.3184624919799, "y": -1000.0}, {"color": "violet", "font": {"color": "white"}, "id": "Science_Fiction", "label": "Science_Fiction", "shape": "dot", "size": 60.0, "title": "\u003cb style=\u0027font-size:16px\u0027\u003eScience_Fiction\u003c/b\u003e", "x": -993.9280383886339, "y": 354.1549104663071}]);
                   edges = new vis.DataSet([{"color": "gray", "from": "Action", "to": "Adventure", "width": 1.5}, {"color": "gray", "from": "Action", "to": "Fantasy", "width": 1.5}, {"color": "gray", "from": "Action", "to": "Science_Fiction", "width": 1.5}, {"color": "gray", "from": "Adventure", "to": "Fantasy", "width": 1.5}, {"color": "gray", "from": "Adventure", "to": "Science_Fiction", "width": 1.5}, {"color": "gray", "from": "Fantasy", "to": "Science_Fiction", "width": 1.5}]);
 
                   nodeColors = {};
@@ -119,7 +119,7 @@
         "hideNodesOnDrag": false
     },
     "physics": {
-        "enabled": true,
+        "enabled": false,
         "stabilization": {
             "enabled": true,
             "fit": true,
